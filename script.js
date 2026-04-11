@@ -10,7 +10,6 @@ const ball = {
     endAngle: Math.PI * 2,
 
     
-    
   }
 
 //World object
@@ -20,17 +19,18 @@ const world = {
   x2: 560,
   y1: 200,
   y2: 395,
-  g: 20,
+  g: 900,
   l: 0,
-  h0: canvasHeight - 200,
+  h0: canvasHeight - 190,
   cart: {
+    acceleration: 0,
     velocity: 0,
     s: 0
   }
 }
 
 function calcLength(x1, x2, y1, y2){
-  length = Math.sqrt(
+  const length = Math.sqrt(
     (x2 - x1) ** 2 + (y2 - y1) ** 2
   );
   return length;
@@ -80,9 +80,20 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 function updateVelocity(){
   const dt = 0.016 // 1 frame * (1 sec / 60 frames) gives change in time after each frame
+  
+  /*
+  const currY = updateY(world.cart.s);
+  const height = canvasHeight - currY;
+  const energy = world.h0 - height;
+
   world.cart.velocity = Math.sqrt(
-    2 * world.g * (world.h0 - ball.y * - 1)
+    2 * world.g * (energy)
   );
+  */
+
+  world.cart.acceleration = world.g * ((world.y2 - world.y1) / world.l);
+
+  world.cart.velocity += world.cart.acceleration * dt
   
   if (world.cart.s / world.l <= 1){
   world.cart.s += world.cart.velocity * dt;
@@ -110,6 +121,5 @@ function animate(){
 }
 
 setUp();
-
 
 
