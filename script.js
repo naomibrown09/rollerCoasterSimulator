@@ -76,7 +76,8 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
   ball.x = updateX(world.cart.s);
   ball.y = updateY(world.cart.s);
 
-  const percent = (world.y2 - ball.y) / world.height;
+  const percentH = (world.y2 - ball.y) / world.height;
+  const percentK = 1 - (((world.y2 - ball.y)) / world.height);
  
 
   ctx.beginPath();
@@ -87,9 +88,9 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   //Energy bars
 
-  ctx.fillRect(800, 395, 75, world.peh * percent);
+  ctx.fillRect(800, 395, 75, world.peh * percentH);
   ctx.fillStyle = "red"
-  ctx.fillRect(925, 395, 75, world.peh * percent);
+  ctx.fillRect(925, 395, 75, world.peh * percentK);
 
   ctx.fillStyle = "purple";
   ctx.fillRect(1050, 395, 75, -300);
