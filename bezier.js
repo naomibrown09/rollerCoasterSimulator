@@ -14,11 +14,24 @@ const ball = {
 
 //World object
 const canvasHeight = 600;
+
+const track = {
+  p0: {x: 150, y: 200},
+  p1: {x: 355, y: 600},
+  p2: {x: 560, y: 200}
+
+}
+
+
+
 const world = {
+
   x1: 150,
   x2: 560,
   y1: 200,
   y2: 395,
+
+
   height: 195,
   g: 900,
   l: 0,
@@ -60,6 +73,26 @@ function setUp(){
 }
 
 
+function getPoint(t){
+  return {
+    x: ((1 - t) ** 2) *  track.p0.x
+     + 2 * (1 - t)*t*track.p1.x
+     + (t ** 2) * track.p2.x,
+
+    y: ((1 - t) ** 2) * track.p0.y 
+    + 2 * (1 - t)* t * track.p1.y + (t ** 2) * track.p2.y 
+    }
+}
+
+function buildTable(){
+  for (let i = 0; i <= 1; i+= 0.5){
+    
+  }
+}
+
+
+
+
 function draw(){
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -68,7 +101,7 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Main path
   ctx.beginPath();
   ctx.moveTo(world.x1, world.y1);
-  ctx.quadraticCurveTo(bezier.cpx, bezier.cpy, bezier.x, bezier.y);
+  ctx.quadraticCurveTo(track.p1.x, track.p1.y, track.p2.x, track.p2.y);
   //ctx.lineTo(world.x2, world.y2);
   ctx.lineWidth = 15;
   ctx.stroke();
