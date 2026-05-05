@@ -10,24 +10,20 @@ const ball = {
     endAngle: Math.PI * 2,
 
     
+    
   }
 
 //World object
-const canvasHeight = 600;
+const canvasHeight = 500;
 const world = {
+
   x1: 150,
   x2: 560,
   y1: 200,
   y2: 395,
-  height: 195,
+
   g: 900,
   l: 0,
-  ke: 0,
-  keh: 0.1,
-  pe: 0,
-  peh: -300,
-  te: 0,
-  teh: -300,
   h0: canvasHeight - 190,
   cart: {
     acceleration: 0,
@@ -76,39 +72,18 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
   ball.x = updateX(world.cart.s);
   ball.y = updateY(world.cart.s);
 
-  const percentH = (world.y2 - ball.y) / world.height;
-  const percentK = 1 - (((world.y2 - ball.y)) / world.height);
- 
-
   ctx.beginPath();
   ctx.arc(ball.x, ball.y - 25, ball.radius, ball.startAngle, ball.endAngle);
   ctx.closePath();
   ctx.fillStyle = "blue";
   ctx.fill();
-
-  //Energy bars
-
-  ctx.fillRect(800, 395, 75, world.peh * percentH);
-  ctx.fillStyle = "red"
-  ctx.fillRect(925, 395, 75, world.peh * percentK);
-
-  ctx.fillStyle = "purple";
-  ctx.fillRect(1050, 395, 75, -300);
-
-  //Energy labels
-  ctx.fillStyle = "black";
-  ctx.font = "48px serif";
-  ctx.fillText("PE", 810, 435);
-
-  ctx.fillStyle = "black";
-  ctx.font = "48px serif";
-  ctx.fillText("KE", 930, 435);
-
-  ctx.fillStyle = "black";
-  ctx.font = "48px serif";
-  ctx.fillText("TE", 1055, 435);
   
 
+  ctx.beginPath();
+  ctx.moveTo(world.x1, world.y1);
+  ctx.quadraticCurveTo((world.x2 - world.x1) / 2 + world.x1, world.y1 + 400, world.x2, world.y1);
+  ctx.stroke();
+  
 
 }
 
@@ -126,14 +101,13 @@ function updateVelocity(){
   */
 
   world.cart.acceleration = world.g * ((world.y2 - world.y1) / world.l);
+
   world.cart.velocity += world.cart.acceleration * dt
   
   if (world.cart.s / world.l <= 1){
   world.cart.s += world.cart.velocity * dt;
   } 
   
-  
-
 }
 
 function updateX(s){
@@ -156,4 +130,5 @@ function animate(){
 }
 
 setUp();
+
 
